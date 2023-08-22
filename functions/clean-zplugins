@@ -1,0 +1,3 @@
+#!/bin/zsh
+rm $ZDOTDIR/.zplugins.zsh > /dev/null 2>&1
+rm $ZDOTDIR/.zcompdump > /dev/null 2>&1
