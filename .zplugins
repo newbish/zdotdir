@@ -35,6 +35,7 @@ mattmc3/zephyr path:plugins/confd
 $ZDOTDIR/plugins/fnm
 $ZDOTDIR/plugins/pdm
 $ZDOTDIR/plugins/npm
+Azure/azure-cli kind:clone path:az.completion
 marlonrichert/zsh-autocomplete
 Aloxaf/fzf-tab
 
