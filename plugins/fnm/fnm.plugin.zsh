@@ -4,7 +4,7 @@ fi
 
 # If the completion file doesn't exist yet, we need to autoload it and
 # bind it to `fnm`. Otherwise, compinit will have already done that.
-COMPLETIONS_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/zsh/completions
+COMPLETIONS_DIR=${$XDG_CACHE_HOME:-$HOME/.cache}/zsh/completions
 mkdir -p $COMPLETIONS_DIR
 if [[ ! -f "$COMPLETIONS_DIR/_fnm" ]]; then
   fnm completions --shell=zsh >| "$COMPLETIONS_DIR/_fnm" &|
