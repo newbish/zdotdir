@@ -19,16 +19,32 @@ if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins} ]]; then
 fi
 source ${zsh_plugins}.zsh
 
+typeset -A key
+
+key[Home]=${terminfo[khome]}
+key[End]=${terminfo[kend]}
+key[Insert]=${terminfo[kich1]}
+key[Delete]=${terminfo[kdch1]}
+key[Up]=${terminfo[kcuu1]}
+key[Down]=${terminfo[kcud1]}
+key[Left]=${terminfo[kcub1]}
+key[Right]=${terminfo[kcuf1]}
+key[PageUp]=${terminfo[kpp]}
+key[PageDown]=${terminfo[knp]}
+
 bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
 bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 bindkey -M menuselect '\r' .accept-line
 bindkey -M menuselect '\e' send-break
 bindkey -M menuselect '^[OD' backward-delete-char
+[[ -n "${key[Home]}"    ]]  && bindkey -M menuselect "${key[Home]}" backward-delete-char
+[[ -n "${key[PageUp]}"  ]]  && bindkey  "${key[PageUp]}"   up-history
+[[ -n "${key[PageDown]}"]]  && bindkey  "${key[PageDown]}" down-history
 
 bindkey  "\e\e"   backward-kill-line
-bindkey  "^[[H"   beginning-of-line
-bindkey  "^[[F"   end-of-line
 bindkey  "^[[3~"  delete-char
+[[ -n "${key[Home]}"    ]]  && bindkey  "${key[Home]}"    beginning-of-line
+[[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
 
 # local .zshrc
 [[ ! -f ~/.zshrc.local ]] || source ~/.zshrc.local
