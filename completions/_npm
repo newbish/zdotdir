@@ -1,6 +1,6 @@
 #compdef npm
 
-# taken from https://github.com/lukechilds/zsh-better-npm-completion
+# customized from https://github.com/lukechilds/zsh-better-npm-completion
 
 _zbnc_npm_command() {
   echo "${words[2]}"
@@ -53,20 +53,38 @@ _zbnc_parse_package_json_for_script_suggestions() {
 
 _zbnc_parse_package_json_for_deps() {
   local package_json="$1"
-  _zbnc_get_package_json_property_object_keys "$package_json" dependencies
-  _zbnc_get_package_json_property_object_keys "$package_json" devDependencies
+  _zbnc_get_package_json_property_object "$package_json" dependencies
+  _zbnc_get_package_json_property_object "$package_json" devDependencies
+}
+
+_zbnc_parse_package_json_for_deps_suggestions() {
+  local package_json="$1"
+  _zbnc_parse_package_json_for_deps "$package_json" |
+    sed -E 's/(.+)=>(.+)/\1/' |  # Parse commands into suggestions
+    sed 's/\(:\)[^$]/\\&/g' |         # Escape ":" in commands
+    sed 's/\(:\)$[^ ]/\\&/g'          # Escape ":$" without a space in commands
 }
 
 _zbnc_npm_install_completion() {
-
   # Only run on `npm install ?`
-  [[ ! "$(_zbnc_no_of_npm_args)" = "3" ]] && return
+  [[ ! "$(_zbnc_no_of_npm_args)" -ge "3" ]] && return
 
-  # Return if we don't have any cached modules
-  [[ "$(_zbnc_list_cached_modules)" = "" ]] && return
+  [[ ${#words[-1]} -eq 0 ]] && return
 
-  # If we do, recommend them
-  _values $(_zbnc_list_cached_modules)
+  local npm_search=$(npm search "${words[-1]}" --parseable --prefer-offline | cut -f 1,2,5 --output-delimiter=':')
+
+  local -a package_names
+  local -a package_descriptions
+  echo "$npm_search" | while IFS=: read -r package_name package_description package_version; do
+    package_names+=("$package_name")
+    if [[ ${#package_version} -le 10 ]]; then
+      package_descriptions+=("$package_name:\[$package_version\]\ - $package_description")
+    else
+      package_descriptions+=("$package_name:$package_description")
+    fi
+  done
+
+  _describe 'npm packages' package_descriptions package_names
 
   # Make sure we don't run default completion
   custom_completion=true
@@ -83,7 +101,14 @@ _zbnc_npm_uninstall_completion() {
   # Return if we can't find package.json
   [[ "$package_json" = "" ]] && return
 
-  _values $(_zbnc_parse_package_json_for_deps "$package_json")
+  local -a options
+  options=(${(f)"$(_zbnc_parse_package_json_for_deps_suggestions $package_json)"})
+
+  # Return if we can't parse it
+  [[ "$#options" = 0 ]] && return
+
+  # Load the completions
+  _describe 'currently installed dependencies' options
 
   # Make sure we don't run default completion
   custom_completion=true
@@ -108,7 +133,7 @@ _zbnc_npm_run_completion() {
   [[ "$#options" = 0 ]] && return
 
   # Load the completions
-  _describe 'values' options
+  _describe 'scripts' options
 
   # Make sure we don't run default completion
   custom_completion=true
@@ -129,13 +154,13 @@ _zbnc_zsh_better_npm_completion() {
 
   # Load custom completion commands
   case "$(_zbnc_npm_command)" in
-    i|install)
+    i|install|add|in|ins|inst|insta|instal|isnt|isnta|isntal|isntall)
       _zbnc_npm_install_completion
       ;;
-    r|uninstall)
+    r|uninstall|rm|remove|unlink|un)
       _zbnc_npm_uninstall_completion
       ;;
-    run)
+    run|run-script|rum|urn)
       _zbnc_npm_run_completion
       ;;
   esac
@@ -146,6 +171,6 @@ _zbnc_zsh_better_npm_completion() {
 
 if [ "$funcstack[1]" = "_zbnc_zsh_better_npm_completion" ]; then
     _zbnc_zsh_better_npm_completion "$@"
-else
+elif (( $+commands[npm] )); then
     compdef _zbnc_zsh_better_npm_completion npm
 fi
