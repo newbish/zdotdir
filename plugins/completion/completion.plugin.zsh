@@ -18,6 +18,8 @@ fpath=(
 
   ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/completions(-/FN)
 
+  ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/completions(-/FN)
+
   # rest of fpath
   $fpath
 )
