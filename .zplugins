@@ -33,7 +33,6 @@ mattmc3/zephyr path:plugins/confd
 # custom plugins
 $ZDOTDIR/plugins/fnm
 $ZDOTDIR/plugins/pdm
-$ZDOTDIR/plugins/npm
 $ZDOTDIR/plugins/completion
 marlonrichert/zsh-autocomplete
 Aloxaf/fzf-tab
