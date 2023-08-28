@@ -18,24 +18,23 @@ mattmc3/zephyr path:plugins/zfunctions
 ohmyzsh/ohmyzsh path:plugins/gitfast
 ohmyzsh/ohmyzsh path:plugins/iterm2 conditional:is-darwin
 
-# custom plugins
-$ZDOTDIR/plugins/completion
-
 # custom prompt
 romkatv/powerlevel10k kind:fpath
 $ZDOTDIR/plugins/prompt
 
 # utilities
+romkatv/zsh-bench kind:path
 mattmc3/zman
 
 # final
 zsh-users/zsh-completions kind:fpath path:src
-# mattmc3/zephyr path:plugins/completion
 mattmc3/zephyr path:plugins/confd
+
+# custom plugins
 $ZDOTDIR/plugins/fnm
 $ZDOTDIR/plugins/pdm
 $ZDOTDIR/plugins/npm
-Azure/azure-cli kind:clone path:az.completion
+$ZDOTDIR/plugins/completion
 marlonrichert/zsh-autocomplete
 Aloxaf/fzf-tab
 

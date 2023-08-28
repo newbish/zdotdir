@@ -1,3 +1,5 @@
+# zmodload zsh/zprof
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -37,14 +39,16 @@ bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 bindkey -M menuselect '\r' .accept-line
 bindkey -M menuselect '\e' send-break
 bindkey -M menuselect '^[OD' backward-delete-char
-[[ -n "${key[Home]}"    ]]  && bindkey -M menuselect "${key[Home]}" backward-delete-char
-[[ -n "${key[PageUp]}"  ]]  && bindkey  "${key[PageUp]}"   up-history
-[[ -n "${key[PageDown]}"]]  && bindkey  "${key[PageDown]}" down-history
+[[ -n "${key[Home]}"     ]]  && bindkey -M menuselect "${key[Home]}"     backward-delete-char
+[[ -n "${key[PageUp]}"   ]]  && bindkey -M menuselect "${key[PageUp]}"   up-history
+[[ -n "${key[PageDown]}" ]]  && bindkey -M menuselect "${key[PageDown]}" down-history
 
 bindkey  "\e\e"   backward-kill-line
 bindkey  "^[[3~"  delete-char
-[[ -n "${key[Home]}"    ]]  && bindkey  "${key[Home]}"    beginning-of-line
-[[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
+[[ -n "${key[Home]}"     ]]  && bindkey "${key[Home]}" beginning-of-line
+[[ -n "${key[End]}"      ]]  && bindkey "${key[End]}"  end-of-line
 
 # local .zshrc
 [[ ! -f ~/.zshrc.local ]] || source ~/.zshrc.local
+
+# zprof

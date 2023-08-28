@@ -21,3 +21,6 @@ fpath=(
   # rest of fpath
   $fpath
 )
+
+run-compinit
+compstyle_setup

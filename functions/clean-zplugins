@@ -1,3 +1,4 @@
 #!/bin/zsh
 rm $ZDOTDIR/.zplugins.zsh > /dev/null 2>&1
 rm $ZDOTDIR/.zcompdump > /dev/null 2>&1
+rm -rf $XDG_CACHE_HOME/zsh/* > /dev/null 2>&1
