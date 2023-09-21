@@ -10,7 +10,7 @@ if [[ ! -f "$COMPLETIONS_DIR/_fnm" ]]; then
   typeset -g -A _comps
   autoload -Uz _fnm
   _comps[fnm]=_fnm
+  fnm completions --shell=zsh >| "$COMPLETIONS_DIR/_fnm" &|
 fi
 
-fnm completions --shell=zsh >| "$COMPLETIONS_DIR/_fnm" &|
 eval "$(fnm env --use-on-cd)"

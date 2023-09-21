@@ -10,6 +10,6 @@ if [[ ! -f "$COMPLETIONS_DIR/_pdm" ]]; then
   typeset -g -A _comps
   autoload -Uz _pdm
   _comps[pdm]=_pdm
-fi
 
-pdm completion zsh >| "$COMPLETIONS_DIR/_pdm" &|
+  pdm completion zsh >| "$COMPLETIONS_DIR/_pdm" &|
+fi

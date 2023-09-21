@@ -16,6 +16,7 @@ mattmc3/zephyr path:plugins/zfunctions
 
 # omz
 ohmyzsh/ohmyzsh path:plugins/gitfast
+ohmyzsh/ohmyzsh kind:fpath path:plugins/docker-compose
 ohmyzsh/ohmyzsh path:plugins/iterm2 conditional:is-darwin
 
 # custom prompt
@@ -35,6 +36,7 @@ g-plane/pnpm-shell-completion kind:path
 $ZDOTDIR/plugins/pnpm
 $ZDOTDIR/plugins/fnm
 $ZDOTDIR/plugins/pdm
+$ZDOTDIR/plugins/orb
 $ZDOTDIR/plugins/completion
 marlonrichert/zsh-autocomplete
 Aloxaf/fzf-tab
