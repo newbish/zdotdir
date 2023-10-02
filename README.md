@@ -4,6 +4,20 @@
 
 Customized from the repository at https://github.com/mattmc3/zdotdir
 
+# Preperation
+If you are not already using zsh.
+
+Install zsh:
+
+```bash
+sudo apt install zsh
+```
+
+Change local shell to zsh:
+
+```bash
+chsh -s /bin/zsh
+```
 
 ## Installation
 
